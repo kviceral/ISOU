@@ -15,8 +15,12 @@
             <!--Responsive Photo Grid-->
             <div id="grid" class="col-md-12" data-columns>             
                 <div class="panel panel-primary" ng-repeat="p in photos"> 
-                    <div class="panel-heading">{{p.id}}</div>
-                    <div class="panel-body"> {{p.title}} </div> 
+                    <div class="panel-heading">
+                        <img src="{{p.urlDefault}}" class="img-responsive" alt="Responsive image">
+                    </div>
+                    <div class="panel-body">
+                         {{p.title}} 
+                    </div> 
                 </div>
                 
                 <!--repeating elements
