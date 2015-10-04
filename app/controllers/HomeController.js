@@ -5,6 +5,20 @@
         
         function init(){
             $log.info("Initializing...");
+            
+            PhotoFactory.getPhotos()
+                .success(function(photos) {
+                    //TODO: put the metadata in another variable
+                    $scope.photos = photos.photos.photo;
+                })
+                .error(function(data, status, headers, config) {
+                    $log.log(data.error + ' ' + status);
+                    //TODO: throw something to UI
+                });
+            
+        }
+
+        $scope.initGrid = function(){
             PhotoFactory.getPhotos()
                 .success(function(photos) {
                     $scope.photos = photos;
@@ -13,7 +27,7 @@
                     $log.log(data.error + ' ' + status);
                     //TODO: throw something to UI
                 });
-        }
+        };
 
         init();
     };
