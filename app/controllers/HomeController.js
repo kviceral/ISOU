@@ -4,7 +4,7 @@
         $scope.photos = [];
         
         function init(){
-            /*
+            $log.info("Initializing...");
             PhotoFactory.getPhotos()
                 .success(function(photos) {
                     $scope.photos = photos;
@@ -13,8 +13,6 @@
                     $log.log(data.error + ' ' + status);
                     //TODO: throw something to UI
                 });
-            */
-            $log.info("Initializing...");
         }
 
         init();
