@@ -13,3 +13,7 @@
         content: '4 .col-md-3';
     }
 }
+
+.card .panel {
+    margin: 10px;
+}

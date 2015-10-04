@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./app/css/app.css" />
+    <link rel="stylesheet" href="./app/css/cards.css" />
     
 </head>
 <body ng-app="ISOUApp">
@@ -13,39 +14,19 @@
         
         <div class="row">
             <!--Responsive Photo Grid-->
-            <div id="grid" class="col-md-12" data-columns>             
-                <div class="panel panel-primary" ng-repeat="p in photos"> 
-                    <div class="panel-heading">
-                        <img src="{{p.urlDefault}}" class="img-responsive" alt="Responsive image">
+            <div id="grid" class="col-md-10">
+                
+                <div class="card" ng-repeat="p in photos">
+                    <div class="panel panel-default col-sm-3 col-xs-6 col-md-2">
+                        <div class="panel-heading">                         
+                            <img src="{{p.urlDefault}}" class="img-responsive" alt="Responsive image">                
+                        </div> 
+                        <div class="panel-body">
+                            <hr>    
+                            <h4>{{p.title}}</h4>
+                        </div> 
                     </div>
-                    <div class="panel-body">
-                         {{p.title}} 
-                    </div> 
                 </div>
-                
-                <!--repeating elements
-                <div class="panel panel-primary"> 
-                    <div class="panel-heading">Panel heading without title</div>
-                    <div class="panel-body"> Panel content </div> 
-                </div>
-                
-                <div class="panel panel-primary"> 
-                    <div class="panel-heading">Panel heading without title</div>
-                    <div class="panel-body"> Panel content </div> 
-                </div>
-                
-                <div class="panel panel-primary"> 
-                    <div class="panel-heading">Panel heading without title</div>
-                    <div class="panel-body"> Panel content </div> 
-                </div>
-                
-                <div class="panel panel-primary"> 
-                    <div class="panel-heading">Panel heading without title</div>
-                    <div class="panel-body"> Panel content </div> 
-                </div> 
-                -->
-                
-                
             </div>
         </div>
         
