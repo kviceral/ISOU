@@ -11,42 +11,83 @@
 </head>
 <body ng-app="ISOUApp">
     <div class="container-fluid" ng-controller="HomeController">
-        <!--Navbar-->
         
-        
-        <!--Responsive Photo Grid-->
-        <div class="row">
-            <div id="grid" class="col-md-10" data-columns>                
-                <div class="card" ng-repeat="p in photos">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">                         
-                            <img src="{{p.urlDefault}}" class="img-responsive" alt="Responsive image">                
-                        </div> 
-                        <div class="panel-body">
-                            <div class="row">
-                                <div id="title" class="col-md-3 col-xs-3">
-                                    <h4>{{p.title}}</h4>
-                                </div>
-                                <div id="controls" class="col-md-5 col-xs-4">
-                                    <div class="input-group">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-default"><i class="glyphicon glyphicon-heart-empty"></i></button>
-                                            <button class="btn btn-default"><i class="glyphicon glyphicon-floppy-save"></i></button> 
-                                            <button class="btn btn-default" ng-click="getPhotoDetails(p.id, p.secret)"><i class="glyphicon glyphicon-chevron-down"></i></button>
-                                        </div>
-                                    </div>
-                                </div>        
-                            </div>
-                            <div class="photo-details">
-                                <p>By: <strong>{{p.details.photo.owner.username}}</strong> on {{p.details.photo.dateuploaded | date}}
-                                </p>
-                                <input type="text" class="form-control" placeholder="Add a comment..">
-                            </div>
-                        </div> 
+        <nav class="navbar navbar-fixed-top header">
+            <div class="col-md-12">
+                <div class="navbar-header">
+                
+                <a href="#" class="navbar-brand">ISO: U | View your Flickr Photos</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
+                <i class="glyphicon glyphicon-search"></i>
+                </button>
+            
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse1">
+                <form class="navbar-form pull-left">
+                    <div class="input-group" style="max-width:470px;">
+                        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                        <div class="input-group-btn">
+                        <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="http://www.krisviceral.com" target="_ext">Kris Viceral
+                        <i class="glyphicon glyphicon-user"></i></a>
+                    </li>
+                </ul>
+                </div>	
+            </div>	
+        </nav>
+        <div class="navbar navbar-default" id="subnav">
+            <div class="col-md-7">
+                <div class="navbar-header">                   
+                    <h1>Hi! ibmtorontolab. <small>Showing you {{page.total}} photos in {{page.page}}/{{page.pages}} pages</small></h1>        	
+                </div>	
+            </div>
+            <div class="col-md-5">
+                <div class="collapse navbar-collapse" id="navbar-collapse2">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active">
+                            <a href="#">About</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
+        </div>    
+        
+
+        <div id="photo-grid">
+            <div class="col-md-3" ng-repeat="p in photos">
+                <div class="panel panel-default">
+                    <div class="panel-heading">                         
+                        <img src="{{p.urlDefault}}" class="img-responsive" alt="Responsive image">                
+                    </div> 
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h4>{{p.title}}</h4>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default"><i class="glyphicon glyphicon-heart-empty"></i></button>
+                                        <button class="btn btn-default"><i class="glyphicon glyphicon-floppy-save"></i></button> 
+                                        <button class="btn btn-default" ng-click="getPhotoDetails(p.id, p.secret)"><i class="glyphicon glyphicon-chevron-down"></i></button>
+                                    </div>
+                                </div>
+                            </div>        
+                        </div>
+                        <div class="photo-details">
+                            <p>By: <strong>{{p.details.photo.owner.username}}</strong> on {{p.details.photo.dateuploaded | date}} | Likes: {{p.favorites.photo.total}}
+                            </p>
+                            <input type="text" class="form-control" placeholder="Add a comment..">
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>           
         
     </div>
     

@@ -1,34 +1,15 @@
-@media screen and (min-width: 1px) and (max-width: 767px){
-    #grid[data-columns]::before {
-        content: '2 .col-xs-6';
-    }
-}
-@media screen and (min-width:768px) and (max-width: 991px){
-    #grid[data-columns]::before {
-        content: '3 .col-sm-4';
-    }
-}
-@media screen and (min-width:992px) and (max-width: 9999px){
-    #grid[data-columns]::before {
-        content: '4 .col-md-3';
-    }
-}
-.column { float: left; }
-.size-1of1 { width: 100%; }
-.size-1of2 { width: 50%; }
-.size-1of3 { width: 33.333%; }
-
-.card .panel {
-    margin: 10px;
+.panel {
+    margin: 5px;
 }
 
 .cover-page {
     background: #fff;
 }
 
-#title{
-    float: left;
+.page-header {
+    background: #fff;
 }
-#controls{
-    float: right;
+
+#photo-grid {
+    padding-top: 150px;
 }

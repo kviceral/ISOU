@@ -2,11 +2,16 @@
 
     var HomeController = function ($scope, $log, PhotoFactory) {
         $scope.photos = [];
+        $scope.page = {};
         
         function init(){
             PhotoFactory.getPhotos()
                 .success(function(photos) {
                     $scope.photos = photos.photos.photo;
+                    $scope.page.page = photos.photos.page;
+                    $scope.page.pages = photos.photos.pages;
+                    $scope.page.perPage = photos.photos.perpage;
+                    $scope.page.total = photos.photos.total;
                                        
                     for(var i=0; i < $scope.photos.length; i++){
                         var photo = $scope.photos[i];
@@ -29,7 +34,14 @@
                 })
                 .error(function(data, status, headers, config) {
                     $log.log(data.error + ' ' + status);
-                });         
+                });
+            PhotoFactory.getPhotoFavorites(id)
+                .success(function(photo) {      
+                    $scope.getPhoto(id).favorites = photo;
+                })
+                .error(function(data, status, headers, config) {
+                    $log.log(data.error + ' ' + status);
+                });                      
         };
 
         $scope.constructDefaultImgLinks = function(farm, server, id, secret){
