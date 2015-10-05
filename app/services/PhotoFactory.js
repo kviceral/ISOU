@@ -65,6 +65,18 @@
                     }
             });
         };
+        factory.searchPhoto = function(text) {
+            return $http.get(API_CONSTANTS.BASE_URL, {
+                params: { 
+                        method: API_CONSTANTS.METHODS.GET_PHOTO_SIZES,
+                        api_key: API_CONSTANTS.API_KEY,
+                        user_id: API_CONSTANTS.USER_ID,
+                        text: text,
+                        format: API_CONSTANTS.FORMAT,
+                        nojsoncallback: API_CONSTANTS.NO_JSON_CALLBACK 
+                    }
+            });
+        };
         factory.addComment = function(id, comment) {
             return $http.get(API_CONSTANTS.BASE_URL, {
                 params: { 
@@ -72,17 +84,6 @@
                         api_key: API_CONSTANTS.API_KEY,
                         photo_id: id,
                         comment_text: comment,
-                        format: API_CONSTANTS.FORMAT,
-                        nojsoncallback: API_CONSTANTS.NO_JSON_CALLBACK 
-                    }
-            });
-        };
-        factory.getComment = function(id) {
-            return $http.get(API_CONSTANTS.BASE_URL, {
-                params: { 
-                        method: API_CONSTANTS.METHODS.GET_COMMENTS,
-                        api_key: API_CONSTANTS.API_KEY,
-                        photo_id: id,
                         format: API_CONSTANTS.FORMAT,
                         nojsoncallback: API_CONSTANTS.NO_JSON_CALLBACK 
                     }

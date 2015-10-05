@@ -5,31 +5,52 @@
         $scope.page = {};
         $scope.user = {};
         $scope.isErrorOnComment = false;
+        $scope.isErrorOnSearch = false;
         $scope.isSuccessOnComment = false;
+        
+        $scope.initializePhotoData = function(photos){
+            $scope.photos = photos.photos.photo;
+            $scope.page.page = photos.photos.page;
+            $scope.page.pages = photos.photos.pages;
+            $scope.page.perPage = photos.photos.perpage;
+            $scope.page.total = photos.photos.total;
+                                
+            for(var i=0; i < $scope.photos.length; i++){
+                var photo = $scope.photos[i];
+                photo.urlDefault = $scope.constructDefaultImgLinks(photo.farm, photo.server,
+                    photo.id, photo.secret);
+                photo.isPhotoDetailsAvailable = false;    
+            }
+        };
              
-        function init(){
+        $scope.loadDefaultPhotos = function(){
             PhotoFactory.getPhotos()
                 .success(function(photos) {
-                    $scope.photos = photos.photos.photo;
-                    $scope.page.page = photos.photos.page;
-                    $scope.page.pages = photos.photos.pages;
-                    $scope.page.perPage = photos.photos.perpage;
-                    $scope.page.total = photos.photos.total;
-                                       
-                    for(var i=0; i < $scope.photos.length; i++){
-                        var photo = $scope.photos[i];
-                        photo.urlDefault = $scope.constructDefaultImgLinks(photo.farm, photo.server,
-                            photo.id, photo.secret);
-                        photo.isPhotoDetailsAvailable = false;    
-                    }
-                    
+                    $scope.initializePhotoData(photos);
                 })
                 .error(function(data, status, headers, config) {
                     $log.error(data.error + ' ' + status);
                     //TODO: throw something to UI
                 });
-            
-        }
+        };
+        
+        //Angular already pre-filters with data-binding. So this is in the case when no results show up.
+        //Probably should make that more clear to user.
+        $scope.search = function(){
+            PhotoFactory.searchPhoto($scope.user.search)
+                .success(function(photos) {
+                    if(photos.stat === "fail"){
+                        $scope.isErrorOnSearch = true;
+                    }else{
+                        $scope.initializePhotoData(photos);    
+                    }      
+                    
+                })
+                .error(function(data, status, headers, config) {
+                    $log.log(data.error + ' ' + status);
+                    //todo
+                });  
+        };
 
         //Possible Refactoring: compile to 1 call in a service 
         $scope.getPhotoDetails = function(id, secret){
@@ -58,6 +79,7 @@
            $scope.getPhoto(id).isPhotoDetailsAvailable = true;                               
         };
         
+        
         $scope.postComment = function(id){
             PhotoFactory.addComment(id, $scope.user.comment)
                 .success(function(photo) {      
@@ -82,6 +104,9 @@
             }
         };        
      
+        function init(){
+            $scope.loadDefaultPhotos();           
+        }
 
         init();
     };
