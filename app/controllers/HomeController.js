@@ -4,17 +4,16 @@
         $scope.photos = [];
         
         function init(){
-            $log.info("Initializing...");
-            
             PhotoFactory.getPhotos()
                 .success(function(photos) {
-                    //TODO: put the metadata in another variable
                     $scope.photos = photos.photos.photo;
-                    
+                                       
                     for(var i=0; i < $scope.photos.length; i++){
-                        $scope.photos[i].urlDefault = $scope.constructDefaultImgLinks($scope.photos[i].farm, $scope.photos[i].server,
-                            $scope.photos[i].id, $scope.photos[i].secret);
+                        var photo = $scope.photos[i];
+                        photo.urlDefault = $scope.constructDefaultImgLinks(photo.farm, photo.server,
+                            photo.id, photo.secret);
                     }
+                    
                 })
                 .error(function(data, status, headers, config) {
                     $log.log(data.error + ' ' + status);
@@ -23,19 +22,26 @@
             
         }
 
-        $scope.initGrid = function(){
-            PhotoFactory.getPhotos()
-                .success(function(photos) {
-                    $scope.photos = photos;
+        $scope.getPhotoDetails = function(id, secret){
+            PhotoFactory.getPhotoDetails(id,secret)
+                .success(function(photo) {      
+                    $scope.getPhoto(id).details = photo;
                 })
                 .error(function(data, status, headers, config) {
                     $log.log(data.error + ' ' + status);
-                    //TODO: throw something to UI
-                });
+                });         
         };
 
         $scope.constructDefaultImgLinks = function(farm, server, id, secret){
             return 'https://farm' + farm + '.staticflickr.com/' + server + '/' + id + '_' + secret + '.jpg';
+        };
+        
+        $scope.getPhoto = function(id){
+            for(var i=0; i < $scope.photos.length; i++){
+                if($scope.photos[i].id === id){
+                    return $scope.photos[i];
+                }
+            }
         };
 
         init();

@@ -13,7 +13,22 @@
         content: '4 .col-md-3';
     }
 }
+.column { float: left; }
+.size-1of1 { width: 100%; }
+.size-1of2 { width: 50%; }
+.size-1of3 { width: 33.333%; }
 
 .card .panel {
     margin: 10px;
+}
+
+.cover-page {
+    background: #fff;
+}
+
+#title{
+    float: left;
+}
+#controls{
+    float: right;
 }
