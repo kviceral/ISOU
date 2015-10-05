@@ -13,7 +13,8 @@
                 GET_PHOTO_INFO: "flickr.photos.getInfo",
                 GET_PHOTO_FAVORITES: "flickr.photos.getFavorites",
                 GET_PHOTO_SIZES: "flickr.photos.getSizes",
-                ADD_COMMENTS: "flickr.photos.comments.addComment"
+                ADD_COMMENTS: "flickr.photos.comments.addComment",
+                GET_COMMENTS: "flickr.photos.comments.getList"
             }
         };
         
@@ -67,10 +68,21 @@
         factory.addComment = function(id, comment) {
             return $http.get(API_CONSTANTS.BASE_URL, {
                 params: { 
-                        method: API_CONSTANTS.METHODS.GET_PHOTO_SIZES,
+                        method: API_CONSTANTS.METHODS.ADD_COMMENTS,
                         api_key: API_CONSTANTS.API_KEY,
                         photo_id: id,
                         comment_text: comment,
+                        format: API_CONSTANTS.FORMAT,
+                        nojsoncallback: API_CONSTANTS.NO_JSON_CALLBACK 
+                    }
+            });
+        };
+        factory.getComment = function(id) {
+            return $http.get(API_CONSTANTS.BASE_URL, {
+                params: { 
+                        method: API_CONSTANTS.METHODS.GET_COMMENTS,
+                        api_key: API_CONSTANTS.API_KEY,
+                        photo_id: id,
                         format: API_CONSTANTS.FORMAT,
                         nojsoncallback: API_CONSTANTS.NO_JSON_CALLBACK 
                     }

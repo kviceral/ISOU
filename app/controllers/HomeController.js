@@ -62,6 +62,7 @@
             PhotoFactory.addComment(id, $scope.user.comment)
                 .success(function(photo) {      
                     $scope.isSuccessOnComment = true;
+                    $scope.user.comment = "";
                 })
                 .error(function(data, status, headers, config) {
                     $log.log(data.error + ' ' + status);
