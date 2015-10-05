@@ -12,7 +12,8 @@
                 GET_PUBLIC_PHOTOS : "flickr.people.getPublicPhotos",
                 GET_PHOTO_INFO: "flickr.photos.getInfo",
                 GET_PHOTO_FAVORITES: "flickr.photos.getFavorites",
-                GET_PHOTO_SIZES:"flickr.photos.getSizes"
+                GET_PHOTO_SIZES: "flickr.photos.getSizes",
+                ADD_COMMENTS: "flickr.photos.comments.addComment"
             }
         };
         
@@ -58,6 +59,18 @@
                         method: API_CONSTANTS.METHODS.GET_PHOTO_SIZES,
                         api_key: API_CONSTANTS.API_KEY,
                         photo_id: id,
+                        format: API_CONSTANTS.FORMAT,
+                        nojsoncallback: API_CONSTANTS.NO_JSON_CALLBACK 
+                    }
+            });
+        };
+        factory.addComment = function(id, comment) {
+            return $http.get(API_CONSTANTS.BASE_URL, {
+                params: { 
+                        method: API_CONSTANTS.METHODS.GET_PHOTO_SIZES,
+                        api_key: API_CONSTANTS.API_KEY,
+                        photo_id: id,
+                        comment_text: comment,
                         format: API_CONSTANTS.FORMAT,
                         nojsoncallback: API_CONSTANTS.NO_JSON_CALLBACK 
                     }
