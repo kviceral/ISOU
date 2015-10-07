@@ -1,6 +1,6 @@
 (function() {
 
-    var HomeController = function ($scope, $log, PhotoFactory) {
+    var HomeController = function ($scope, $log, PhotoFactory, PhotoService) {
         $scope.photos = [];
         $scope.page = {};
         $scope.user = {};
@@ -52,31 +52,18 @@
                 });  
         };
 
-        //Possible Refactoring: compile to 1 call in a service 
-        $scope.getPhotoDetails = function(id, secret){
-            PhotoFactory.getPhotoDetails(id,secret)
-                .success(function(photo) {      
-                    $scope.getPhoto(id).details = photo;
-                })
-                .error(function(data, status, headers, config) {
-                    $log.error(data.error + ' ' + status);
-                });
-            PhotoFactory.getPhotoFavorites(id)
-                .success(function(photo) {      
-                    $scope.getPhoto(id).favorites = photo;
-                })
-                .error(function(data, status, headers, config) {
-                    $log.error(data.error + ' ' + status);
-                });
-            PhotoFactory.getPhotoSizes(id)
-                .success(function(photo) {      
-                    $scope.getPhoto(id).download = photo.sizes.size;
-                })
-                .error(function(data, status, headers, config) {
-                    $log.error(data.error + ' ' + status);
-                });
-           //Should move this to a promise then     
-           $scope.getPhoto(id).isPhotoDetailsAvailable = true;                               
+        $scope.getPhotoDetails = function(id, secret){   
+            var promise = PhotoService.getPhotoDetails(id, secret);
+            promise.then(function(data) {               
+                var photo = PhotoService.getPhoto(id, $scope.photos);
+                photo.details = data;
+                photo.isPhotoDetailsAvailable = true;    
+                $log.info(photo);
+            }, function(reason) {
+                //failed flow
+            }, function(update) {
+                //todo
+            });                                               
         };
         
         
@@ -105,13 +92,13 @@
         };        
      
         function init(){
-            $scope.loadDefaultPhotos();           
+            $scope.loadDefaultPhotos();                      
         }
 
         init();
     };
 
-    HomeController.$inject = ['$scope', '$log', 'PhotoFactory'];
+    HomeController.$inject = ['$scope', '$log', 'PhotoFactory', 'PhotoService'];
     angular.module('ISOUApp').controller('HomeController', HomeController);
 
 }());
