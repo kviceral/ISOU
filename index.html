@@ -82,7 +82,7 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li ng-repeat="d in p.download"><a href="{{d.source}}" target="_blank">{{d.label}}</a></li>
+                                            <li ng-repeat="d in p.details.download"><a href="{{d.source}}" target="_blank">{{d.label}}</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -91,7 +91,7 @@
                         <div class="photo-details" ng-show="p.isPhotoDetailsAvailable">
                             <div class="row">
                                 <div class="col-md-10">
-                                    By: <strong>{{p.details.photo.owner.username}}</strong> on {{p.details.photo.dateuploaded | date}} | Likes: {{p.favorites.photo.total}}    
+                                    By: <strong>{{p.details.details.photo.owner.username}}</strong> on {{p.details.details.photo.dateuploaded | date}} | Likes: {{p.details.favorites.photo.total}}    
                                 </div>    
                             </div>
                             <div id="comment-box" class="row">
@@ -129,9 +129,9 @@
     <script type="text/javascript" src="./app/controllers/HomeController.js"></script>
     <!-- Services and Factories -->
     <script type="text/javascript" src="./app/services/PhotoFactory.js"></script>
+    <script type="text/javascript" src="./app/services/PhotoService.js"></script>
     <!--Other Utils-->
     <script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="./bower_components/salvattore/dist/salvattore.min.js"></script>
 </body>
 </html>
